@@ -2,10 +2,11 @@
 
 from urllib.parse import urljoin
 from flask import Flask, render_template, redirect
+import appconfig
 
 app = Flask(__name__)
 
-app.config.update(STATIC_URL='http://cdn.fahad.link/')
+app.config.update(appconfig.STATIC_URL)
 
 @app.endpoint('static')
 def static(filename):
