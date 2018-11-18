@@ -1,11 +1,14 @@
 # Simple Flask Hello World App
 
 from urllib.parse import urljoin
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
+import json
+
+import appconfig
 
 app = Flask(__name__)
 
-app.config.update(STATIC_URL='http://cdn.fahad.link/')
+app.config.update(STATIC_URL=appconfig.STATIC_URL)
 
 @app.endpoint('static')
 def static(filename):
@@ -21,8 +24,11 @@ def hello_world():
     args = {
         'main_content': "Test App",
         'page_title': "Hello World!",
-        'author': "Fahad Yousuf"
+        'author': "Fahad Yousuf",
+        'data': str(request.remote_addr),
     }
+    print(request.remote_addr)
+
     return render_template('index.html', **args )
 
 # Serve the application
